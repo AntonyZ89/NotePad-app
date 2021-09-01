@@ -6,10 +6,10 @@ import {Button, Header} from 'react-native-elements';
 import {RootStackParamList} from '../../App';
 import {InnerContainer} from '../components';
 
-type MainStackParamList = StackNavigationProp<RootStackParamList>;
+type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
 
 const Home = () => {
-  const navigation = useNavigation<MainStackParamList>();
+  const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
     <>
@@ -23,7 +23,7 @@ const Home = () => {
 
       <InnerContainer style={styles.container}>
         <Button
-          onPress={() => navigation.navigate('Notes')}
+          onPress={() => navigation.navigate('NoteList')}
           buttonStyle={styles.optionContainer}
           title={'Notas'}
           titleStyle={styles.optionTitle}

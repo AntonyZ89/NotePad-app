@@ -1,4 +1,5 @@
 import Home from './Home';
-import Notes from './Notes';
+import Note from './Note';
+import NoteList from './NoteList';
 
-export {Home, Notes};
+export {Home, Note, NoteList};

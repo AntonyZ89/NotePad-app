@@ -1,51 +1,49 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {FAB, ListItem} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/core';
+import {StackNavigationProp} from '@react-navigation/stack';
+import React, {Dispatch, SetStateAction} from 'react';
+import {StyleSheet} from 'react-native';
+import {ListItem} from 'react-native-elements';
+import {RootStackParamList} from '../../App';
+import {NoteType} from '../types';
 
-const NoteCard = () => {
+type PROPS = {
+  item: NoteType;
+  showMenu: Dispatch<SetStateAction<NoteType | undefined>>;
+};
+
+type RootStackNavigationProp = StackNavigationProp<RootStackParamList, 'Note'>;
+
+const NoteCard = ({item, showMenu}: PROPS) => {
+  const navigation = useNavigation<RootStackNavigationProp>();
+
+  const {color, title, content} = item;
+
   return (
-    <ListItem bottomDivider>
+    <ListItem
+      containerStyle={[
+        styles.container,
+        color ? {borderLeftWidth: 5, borderLeftColor: color} : null,
+      ]}
+      bottomDivider
+      onLongPress={() => showMenu(item)}
+      onPress={() => navigation.navigate('Note', {item})}>
       <ListItem.Content>
-        <ListItem.Title>Example</ListItem.Title>
-        <ListItem.Subtitle numberOfLines={2}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tempus
-          diam sit amet aliquam lacinia. Morbi lectus risus, volutpat sed neque
-        </ListItem.Subtitle>
+        <ListItem.Title numberOfLines={1} style={styles.title}>
+          {title}
+        </ListItem.Title>
+        <ListItem.Subtitle numberOfLines={2}>{content}</ListItem.Subtitle>
       </ListItem.Content>
-      <View>
-        <FAB
-          color={'#53B8BB'}
-          size={'small'}
-          icon={{
-            name: 'pencil',
-            size: 20,
-          }}
-          style={{marginBottom: 5}}
-        />
-        <FAB
-          color={'#FF4848'}
-          size={'small'}
-          icon={{
-            name: 'trash',
-            size: 20,
-          }}
-        />
-      </View>
     </ListItem>
-
-    // <View style={styles.container}>
-    //   <Text>Teste</Text>
-    // </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFF7AE',
-    padding: 12,
-    marginTop: 10,
-    elevation: 5,
-    borderRadius: 5,
+    minHeight: 90,
+    alignItems: 'flex-start',
+  },
+  title: {
+    fontWeight: 'bold',
   },
 });
 

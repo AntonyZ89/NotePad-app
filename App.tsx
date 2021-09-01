@@ -13,12 +13,16 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Home, Notes} from './src/pages';
+import {Home, Note, NoteList} from './src/pages';
 import {ThemeProvider} from 'react-native-elements';
+import {NoteType} from './src/types';
 
 export type RootStackParamList = {
   Home: undefined;
-  Notes: undefined;
+  Note?: {
+    item: NoteType;
+  };
+  NoteList: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -42,10 +46,8 @@ const App = () => {
               name={'Home'}
               component={Home}
             />
-            <Stack.Screen
-              name={'Notes'}
-              component={Notes}
-            />
+            <Stack.Screen name={'NoteList'} component={NoteList} />
+            <Stack.Screen name={'Note'} component={Note} />
           </Stack.Navigator>
         </NavigationContainer>
       </ThemeProvider>
