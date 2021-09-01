@@ -1,6 +1,12 @@
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/core';
 import React, {useState} from 'react';
-import {Dimensions, StyleSheet, TextInput, View} from 'react-native';
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import {Divider, Input, Text} from 'react-native-elements';
 import {RootStackParamList} from '../../App';
 
@@ -31,22 +37,24 @@ const Note = () => {
   return (
     <View style={{flex: 1}}>
       <Input placeholder={'Título'} value={title} onChangeText={setTitle} />
-      <View style={{flex: 1}}>
-        <View style={styles.linesContainer}>
-          {Array(lines)
-            .fill()
-            .map(() => (
-              <Divider style={styles.line} />
-            ))}
+      <ScrollView>
+        <View style={{flex: 1}}>
+          <View style={styles.linesContainer}>
+            {Array(lines)
+              .fill()
+              .map((v, i) => (
+                <Divider key={i.toString()} style={styles.line} />
+              ))}
+          </View>
+          <TextInput
+            multiline
+            value={content}
+            onChangeText={setContent}
+            spellCheck={false}
+            style={styles.content}
+          />
         </View>
-        <TextInput
-          multiline
-          value={content}
-          onChangeText={setContent}
-          spellCheck={false}
-          style={styles.content}
-        />
-      </View>
+      </ScrollView>
     </View>
   );
 };

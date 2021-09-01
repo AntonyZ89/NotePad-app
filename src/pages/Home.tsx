@@ -21,19 +21,19 @@ const Home = () => {
         }}
       />
 
-      <InnerContainer style={styles.container}>
+      <InnerContainer style={styles.innerContainer}>
         <Button
           onPress={() => navigation.navigate('NoteList')}
           buttonStyle={styles.optionContainer}
           title={'Notas'}
           titleStyle={styles.optionTitle}
-          icon={{name: 'sticky-note', size: 50, style: styles.optionIcon}}
+          icon={{name: 'sticky-note', size: 40, style: styles.optionIcon}}
         />
         <Button
           buttonStyle={styles.optionContainer}
           title={'Configurações'}
           titleStyle={styles.optionTitle}
-          icon={{name: 'cogs', size: 50, style: styles.optionIcon}}
+          icon={{name: 'cogs', size: 40, style: styles.optionIcon}}
         />
         <Button
           buttonStyle={styles.optionContainer}
@@ -41,7 +41,7 @@ const Home = () => {
           titleStyle={styles.optionTitle}
           icon={{
             name: 'question',
-            size: 50,
+            size: 40,
             style: styles.optionIcon,
           }}
         />
@@ -51,18 +51,17 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'space-around',
-    alignItems: 'center',
+  innerContainer: {
+    justifyContent: 'center',
   },
   optionContainer: {
-    flexDirection: 'column',
-    width: 150,
-    height: 150,
     borderRadius: 12,
+    margin: 5,
   },
   optionTitle: {
-    fontSize: 20,
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginLeft: 20,
   },
   optionIcon: {
     marginBottom: 10,
