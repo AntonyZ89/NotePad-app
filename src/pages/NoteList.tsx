@@ -5,7 +5,7 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import {BottomSheet, Card, FAB, Text} from 'react-native-elements';
 import {RootStackParamList} from '../../App';
 import {NoteCard} from '../components';
-import {notes} from '../service/mock';
+import {useNote} from '../contexts/NoteContext';
 import {NoteType} from '../types';
 
 type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -13,6 +13,7 @@ type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
 const Notes = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [selectedNote, setSelectedNote] = useState<NoteType>();
+  const {notes, lock, unlock} = useNote();
 
   return (
     <>
@@ -62,11 +63,18 @@ const Notes = () => {
               color={'#FFFACD'}
               size={'large'}
               icon={{
-                name: 'lock',
+                name: selectedNote?.locked ? 'unlock' : 'lock',
                 color: 'black',
               }}
+              onPress={() => {
+                selectedNote?.locked
+                  ? unlock(selectedNote?.id)
+                  : lock(selectedNote?.id);
+              }}
             />
-            <Text style={styles.bottomLabel}>Bloquear</Text>
+            <Text style={styles.bottomLabel}>
+              {selectedNote?.locked ? 'Desbloquear' : 'Bloquear'}
+            </Text>
           </View>
           <View style={styles.bottomOption}>
             <FAB

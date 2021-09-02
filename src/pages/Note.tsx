@@ -1,5 +1,5 @@
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   ScrollView,
@@ -7,8 +7,9 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {Divider, Input, Text} from 'react-native-elements';
+import {Divider, FAB, Input} from 'react-native-elements';
 import {RootStackParamList} from '../../App';
+import {useNote} from '../contexts/NoteContext';
 
 type NoteScreenNavigationProps = RouteProp<RootStackParamList, 'Note'>;
 
@@ -17,26 +18,48 @@ const lines = Math.ceil(Dimensions.get('window').height / 20);
 const Note = () => {
   const {item} = useRoute<NoteScreenNavigationProps>().params || {};
   const navigation = useNavigation();
+  const {lock, unlock, save} = useNote();
 
   const [title, setTitle] = useState<string | undefined>(item?.title);
   const [content, setContent] = useState<string | undefined>(item?.content);
   const [color, setColor] = useState<string | undefined>(item?.color);
 
-  navigation.addListener('blur', () => {
-    console.log('blur');
-  });
+  useEffect(() => {
+    const blur = navigation.addListener('blur', () => {
+      save({
+        id: item?.id,
+        title,
+        content,
+        locked: item?.locked,
+        color,
+      });
+    });
 
-  async function save() {
-    if (item?.id) {
-      // TODO
-    } else {
-      // TODO
-    }
-  }
+    return blur;
+  });
 
   return (
     <View style={{flex: 1}}>
-      <Input placeholder={'Título'} value={title} onChangeText={setTitle} />
+      <View style={styles.title}>
+        <Input
+          placeholder={'Título'}
+          editable={!item?.locked}
+          value={title}
+          onChangeText={setTitle}
+          containerStyle={{flex: 1}}
+        />
+        {item?.id && (
+          <FAB
+            color={'#FFFACD'}
+            size={'large'}
+            icon={{
+              name: item.locked ? 'lock' : 'unlock',
+              color: 'black',
+            }}
+            onPress={() => (item.locked ? unlock(item.id) : lock(item.id))}
+          />
+        )}
+      </View>
       <ScrollView>
         <View style={{flex: 1}}>
           <View style={styles.linesContainer}>
@@ -48,6 +71,7 @@ const Note = () => {
           </View>
           <TextInput
             multiline
+            editable={!item?.locked}
             value={content}
             onChangeText={setContent}
             spellCheck={false}
@@ -60,6 +84,10 @@ const Note = () => {
 };
 
 const styles = StyleSheet.create({
+  title: {
+    flexDirection: 'row',
+    marginRight: 8,
+  },
   linesContainer: {
     position: 'absolute',
     top: 0,

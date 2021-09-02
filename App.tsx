@@ -16,6 +16,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Home, Note, NoteList} from './src/pages';
 import {ThemeProvider} from 'react-native-elements';
 import {NoteType} from './src/types';
+import {NoteProvider} from './src/contexts/NoteContext';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -39,17 +40,27 @@ const App = () => {
     <SafeAreaProvider>
       <StatusBar barStyle={'dark-content'} />
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName={'Home'}>
-            <Stack.Screen
-              options={{headerShown: false}}
-              name={'Home'}
-              component={Home}
-            />
-            <Stack.Screen name={'NoteList'} component={NoteList} />
-            <Stack.Screen name={'Note'} component={Note} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <NoteProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName={'Home'}>
+              <Stack.Screen
+                options={{headerShown: false}}
+                name={'Home'}
+                component={Home}
+              />
+              <Stack.Screen
+                options={{title: 'Notas'}}
+                name={'NoteList'}
+                component={NoteList}
+              />
+              <Stack.Screen
+                options={{title: 'Nota'}}
+                name={'Note'}
+                component={Note}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </NoteProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

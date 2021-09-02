@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/core';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {Dispatch, SetStateAction} from 'react';
 import {StyleSheet} from 'react-native';
-import {ListItem} from 'react-native-elements';
+import {Icon, ListItem} from 'react-native-elements';
 import {RootStackParamList} from '../../App';
 import {NoteType} from '../types';
 
@@ -16,7 +16,7 @@ type RootStackNavigationProp = StackNavigationProp<RootStackParamList, 'Note'>;
 const NoteCard = ({item, showMenu}: PROPS) => {
   const navigation = useNavigation<RootStackNavigationProp>();
 
-  const {color, title, content} = item;
+  const {color, title, content, locked} = item;
 
   return (
     <ListItem
@@ -33,6 +33,9 @@ const NoteCard = ({item, showMenu}: PROPS) => {
         </ListItem.Title>
         <ListItem.Subtitle numberOfLines={2}>{content}</ListItem.Subtitle>
       </ListItem.Content>
+      {locked && (
+        <Icon name={'lock'} color={'black'} style={{alignSelf: 'center'}} />
+      )}
     </ListItem>
   );
 };
@@ -40,7 +43,7 @@ const NoteCard = ({item, showMenu}: PROPS) => {
 const styles = StyleSheet.create({
   container: {
     minHeight: 90,
-    alignItems: 'flex-start',
+    alignItems: 'center'
   },
   title: {
     fontWeight: 'bold',
