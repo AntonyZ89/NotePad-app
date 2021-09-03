@@ -7,9 +7,10 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {Divider, FAB, Input} from 'react-native-elements';
+import {BottomSheet, Button, Divider, FAB, Input} from 'react-native-elements';
 import {RootStackParamList} from '../../App';
 import {useNote} from '../contexts/NoteContext';
+import mock from '../service/mock';
 
 type NoteScreenNavigationProps = RouteProp<RootStackParamList, 'Note'>;
 
@@ -20,14 +21,15 @@ const Note = () => {
   const navigation = useNavigation();
   const {lock, unlock, save} = useNote();
 
-  const [title, setTitle] = useState<string | undefined>(item?.title);
-  const [content, setContent] = useState<string | undefined>(item?.content);
+  const [title, setTitle] = useState<string>(item?.title || '');
+  const [content, setContent] = useState<string>(item?.content || '');
   const [color, setColor] = useState<string | undefined>(item?.color);
+  const [showColorPicker, setShowColorPicker] = useState(false);
 
   useEffect(() => {
     const blur = navigation.addListener('blur', () => {
       save({
-        id: item?.id,
+        id: item?.id as number,
         title,
         content,
         locked: item?.locked,
@@ -59,12 +61,21 @@ const Note = () => {
             onPress={() => (item.locked ? unlock(item.id) : lock(item.id))}
           />
         )}
+        <FAB
+          color={color || 'rgba(0, 0, 0, 0.1)'}
+          size={'large'}
+          icon={{
+            name: 'tint',
+            color: 'black',
+          }}
+          onPress={() => setShowColorPicker(true)}
+        />
       </View>
       <ScrollView>
         <View style={{flex: 1}}>
           <View style={styles.linesContainer}>
             {Array(lines)
-              .fill()
+              .fill(null)
               .map((v, i) => (
                 <Divider key={i.toString()} style={styles.line} />
               ))}
@@ -79,6 +90,29 @@ const Note = () => {
           />
         </View>
       </ScrollView>
+
+      <BottomSheet isVisible={showColorPicker}>
+        <View style={styles.colorPickerContainer}>
+            <Button
+              icon={{name: 'ban', color: 'black'}}
+              buttonStyle={[styles.colorButton, {backgroundColor: 'white'}]}
+              onPress={() => setColor(undefined)}
+            />
+          {mock.colors.map(c => (
+            <Button
+              buttonStyle={[styles.colorButton, {backgroundColor: c}]}
+              onPress={() => {
+                setColor(c);
+              }}
+            />
+          ))}
+          <Button
+            icon={{name: 'times', color: 'black'}}
+            buttonStyle={[styles.colorButton, {backgroundColor: 'white'}]}
+            onPress={() => setShowColorPicker(false)}
+          />
+        </View>
+      </BottomSheet>
     </View>
   );
 };
@@ -104,6 +138,17 @@ const styles = StyleSheet.create({
     fontSize: 15,
     flex: 1,
     padding: 12,
+  },
+  colorPickerContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  colorButton: {
+    width: 50,
+    height: 50,
+    margin: 3,
   },
 });
 

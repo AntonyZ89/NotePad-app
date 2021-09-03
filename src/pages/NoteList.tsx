@@ -13,25 +13,26 @@ type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
 const Notes = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [selectedNote, setSelectedNote] = useState<NoteType>();
-  const {notes, lock, unlock} = useNote();
+  const {notes, lock, unlock, remove} = useNote();
 
   return (
     <>
-      <FAB
-        icon={{name: 'plus'}}
-        placement={'right'}
-        color={'#4299e1'}
-        onPress={() => navigation.navigate('Note')}
-      />
       <Card containerStyle={styles.card}>
         <FlatList
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item?.id.toString()}
           data={notes}
           renderItem={({item}) => (
             <NoteCard item={item} showMenu={setSelectedNote} />
           )}
         />
       </Card>
+
+      <FAB
+        icon={{name: 'plus'}}
+        placement={'right'}
+        color={'#4299e1'}
+        onPress={() => navigation.navigate('Note')}
+      />
 
       <BottomSheet
         isVisible={Boolean(selectedNote)}
@@ -44,7 +45,9 @@ const Notes = () => {
               icon={{
                 name: 'pencil',
               }}
-              onPress={() => navigation.navigate('Note', {item: selectedNote})}
+              onPress={() =>
+                navigation.navigate('Note', {item: selectedNote as NoteType})
+              }
             />
             <Text style={styles.bottomLabel}>Editar</Text>
           </View>
@@ -54,6 +57,10 @@ const Notes = () => {
               size={'large'}
               icon={{
                 name: 'trash',
+              }}
+              onPress={() => {
+                setSelectedNote(undefined);
+                remove(selectedNote?.id as number);
               }}
             />
             <Text style={styles.bottomLabel}>Excluir</Text>
@@ -68,8 +75,8 @@ const Notes = () => {
               }}
               onPress={() => {
                 selectedNote?.locked
-                  ? unlock(selectedNote?.id)
-                  : lock(selectedNote?.id);
+                  ? unlock(selectedNote?.id as number)
+                  : lock(selectedNote?.id as number);
               }}
             />
             <Text style={styles.bottomLabel}>
@@ -98,6 +105,7 @@ const styles = StyleSheet.create({
   card: {
     margin: 0,
     padding: 0,
+    flex: 1,
   },
   backdropStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.65)',

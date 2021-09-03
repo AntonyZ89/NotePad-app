@@ -43,7 +43,7 @@ const NoteCard = ({item, showMenu}: PROPS) => {
 const styles = StyleSheet.create({
   container: {
     minHeight: 90,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     fontWeight: 'bold',

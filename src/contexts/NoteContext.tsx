@@ -30,8 +30,6 @@ const NoteProvider: React.FC = ({children}) => {
         (await AsyncStorage.getItem('@notes')) || '[]',
       );
 
-      console.log(content);
-
       setNotes(content);
     })();
   }, []);
@@ -58,10 +56,9 @@ const NoteProvider: React.FC = ({children}) => {
   function remove(id: number) {
     const index = notes.findIndex(({id: note_id}) => note_id === id);
 
-    delete notes[index];
+    notes.splice(index, 1);
 
     setNotes(notes);
-    setRerender(!rerender);
   }
 
   function lock(id: number) {

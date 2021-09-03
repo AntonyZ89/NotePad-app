@@ -1,3 +1,4 @@
 import notes from './notes';
+import colors from './colors';
 
-export {notes};
+export default {notes, colors};
