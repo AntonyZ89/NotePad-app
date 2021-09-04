@@ -14,7 +14,6 @@ const Home = () => {
   return (
     <>
       <Header
-        leftComponent={{icon: 'bars', color: 'white'}}
         centerComponent={{
           text: 'NotePad',
           style: {fontWeight: 'bold', fontSize: 20, color: 'white'},
@@ -30,12 +29,7 @@ const Home = () => {
           icon={{name: 'sticky-note', size: 40, style: styles.optionIcon}}
         />
         <Button
-          buttonStyle={styles.optionContainer}
-          title={'Configurações'}
-          titleStyle={styles.optionTitle}
-          icon={{name: 'cogs', size: 40, style: styles.optionIcon}}
-        />
-        <Button
+          onPress={() => navigation.navigate('About')}
           buttonStyle={styles.optionContainer}
           title={'Sobre'}
           titleStyle={styles.optionTitle}

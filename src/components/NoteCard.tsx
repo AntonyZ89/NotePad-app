@@ -22,7 +22,13 @@ const NoteCard = ({item, showMenu}: PROPS) => {
     <ListItem
       containerStyle={[
         styles.container,
-        color ? {borderLeftWidth: 5, borderLeftColor: color} : null,
+        color
+          ? {
+              borderLeftWidth: 5,
+              borderColor: color,
+              borderBottomColor: 'gray', // fix for Android, because `borderLeftColor` doesn't works
+            }
+          : null,
       ]}
       bottomDivider
       onLongPress={() => showMenu(item)}

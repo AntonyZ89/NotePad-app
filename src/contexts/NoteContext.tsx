@@ -1,5 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {NoteType} from '../types';
 
 type PROPS = {
@@ -8,6 +15,8 @@ type PROPS = {
   remove: (id: number) => void;
   lock: (id: number) => void;
   unlock: (id: number) => void;
+  colorFilter?: string;
+  setColorFilter: Dispatch<SetStateAction<string | undefined>>;
 };
 
 const init: PROPS = {
@@ -16,6 +25,7 @@ const init: PROPS = {
   remove: _id => {},
   lock: _id => {},
   unlock: _id => {},
+  setColorFilter: _color => {},
 };
 
 const NoteContext = createContext<PROPS>(init);
@@ -23,6 +33,7 @@ const NoteContext = createContext<PROPS>(init);
 const NoteProvider: React.FC = ({children}) => {
   const [notes, setNotes] = useState<NoteType[]>([]);
   const [rerender, setRerender] = useState(false);
+  const [colorFilter, setColorFilter] = useState<string | undefined>();
 
   useEffect(() => {
     (async () => {
@@ -80,7 +91,8 @@ const NoteProvider: React.FC = ({children}) => {
   }
 
   return (
-    <NoteContext.Provider value={{notes, save, lock, unlock, remove}}>
+    <NoteContext.Provider
+      value={{notes, save, lock, unlock, remove, colorFilter, setColorFilter}}>
       {children}
     </NoteContext.Provider>
   );

@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/core';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
-import {BottomSheet, Card, FAB, Text} from 'react-native-elements';
+import {BottomSheet, FAB, Text} from 'react-native-elements';
 import {RootStackParamList} from '../../App';
 import {NoteCard} from '../components';
 import {useNote} from '../contexts/NoteContext';
@@ -13,19 +13,19 @@ type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
 const Notes = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [selectedNote, setSelectedNote] = useState<NoteType>();
-  const {notes, lock, unlock, remove} = useNote();
+  const {notes, lock, unlock, remove, colorFilter} = useNote();
 
   return (
     <>
-      <Card containerStyle={styles.card}>
-        <FlatList
-          keyExtractor={item => item?.id.toString()}
-          data={notes}
-          renderItem={({item}) => (
-            <NoteCard item={item} showMenu={setSelectedNote} />
-          )}
-        />
-      </Card>
+      <FlatList
+        keyExtractor={item => item?.id.toString()}
+        data={notes.filter(note =>
+          colorFilter ? note.color === colorFilter : true,
+        )}
+        renderItem={({item}) => (
+          <NoteCard item={item} showMenu={setSelectedNote} />
+        )}
+      />
 
       <FAB
         icon={{name: 'plus'}}

@@ -16,7 +16,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Home, Note, NoteList} from './src/pages';
 import {ThemeProvider} from 'react-native-elements';
 import {NoteType} from './src/types';
-import {NoteProvider} from './src/contexts/NoteContext';
+import {NoteProvider, useNote} from './src/contexts/NoteContext';
+import About from './src/pages/About';
+import {ColorPicker} from './src/components';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -24,6 +26,7 @@ export type RootStackParamList = {
     item: NoteType;
   };
   NoteList: undefined;
+  About: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -49,7 +52,19 @@ const App = () => {
                 component={Home}
               />
               <Stack.Screen
-                options={{title: 'Notas'}}
+                options={{
+                  title: 'Notas',
+                  headerRight: () => {
+                    // FIXME
+                    const {colorFilter, setColorFilter} = useNote();
+                    return (
+                      <ColorPicker
+                        onChange={setColorFilter}
+                        color={colorFilter}
+                      />
+                    );
+                  },
+                }}
                 name={'NoteList'}
                 component={NoteList}
               />
@@ -57,6 +72,13 @@ const App = () => {
                 options={{title: 'Nota'}}
                 name={'Note'}
                 component={Note}
+              />
+              <Stack.Screen
+                options={{
+                  title: 'Sobre',
+                }}
+                name={'About'}
+                component={About}
               />
             </Stack.Navigator>
           </NavigationContainer>
