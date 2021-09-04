@@ -20,7 +20,7 @@ const ColorPicker = ({color: initial_color, onChange}: PROPS) => {
     <>
       <FAB
         color={color || 'white'}
-        size={'large'}
+        size={'small'}
         icon={{
           name: 'tint',
           color: 'black',

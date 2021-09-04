@@ -27,6 +27,10 @@ const Note = () => {
 
   useEffect(() => {
     const blur = navigation.addListener('blur', () => {
+      if (!title.length && !content.length) {
+        return;
+      }
+
       save({
         id: item?.id as number,
         title,
@@ -56,7 +60,7 @@ const Note = () => {
         {item?.id && (
           <FAB
             color={'#FFFACD'}
-            size={'large'}
+            size={'small'}
             icon={{
               name: item.locked ? 'lock' : 'unlock',
               color: 'black',
@@ -81,7 +85,12 @@ const Note = () => {
             value={content}
             onChangeText={setContent}
             spellCheck={false}
-            style={styles.content}
+            style={[
+              styles.content,
+              {
+                color: item?.locked ? 'gray' : undefined,
+              },
+            ]}
           />
         </ScrollView>
       </View>
@@ -102,7 +111,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   line: {
-    marginBottom: 20,
+    marginTop: 20,
   },
   content: {
     borderBottomWidth: 0,
@@ -111,6 +120,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0,
     paddingHorizontal: 12,
+    paddingBottom: 150,
   },
 });
 

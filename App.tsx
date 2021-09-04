@@ -41,7 +41,7 @@ const theme = {
 const App = () => {
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={'dark-content'} />
+      <StatusBar barStyle={'light-content'} />
       <ThemeProvider theme={theme}>
         <NoteProvider>
           <NavigationContainer>
@@ -55,7 +55,6 @@ const App = () => {
                 options={{
                   title: 'Notas',
                   headerRight: () => {
-                    // FIXME
                     const {colorFilter, setColorFilter} = useNote();
                     return (
                       <ColorPicker
