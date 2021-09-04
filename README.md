@@ -2,10 +2,10 @@
   <img width=150 src="https://reactnative.dev/img/header_logo.svg" alt="Sublime's custom image"/>
 </p>
 
-<h1 align="center" style="font-weight: bold">BOOK STORE APP</h1>
+<h1 align="center" style="font-weight: bold">NotePad APP</h1>
 
 <p align="center">
-A Book Store app builded with <b>React Native Magnus</b> components
+A NotePadd APP builded with <b>React Native Elements</b> components
 </p>
 
 <p valign="top" align="center">
