@@ -3,8 +3,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import React, {Dispatch, SetStateAction} from 'react';
 import {StyleSheet} from 'react-native';
 import {Icon, ListItem} from 'react-native-elements';
-import {RootStackParamList} from '../../App';
-import {NoteType} from '../types';
+import {RootStackParamList} from '~/../App';
+import {NoteType} from '~/types';
 
 type PROPS = {
   item: NoteType;

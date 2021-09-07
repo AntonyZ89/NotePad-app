@@ -7,7 +7,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import {NoteType} from '../types';
+import {NoteType} from '~/types';
 
 type PROPS = {
   notes: NoteType[];

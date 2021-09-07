@@ -9,11 +9,11 @@ A Book Store app builded with <b>React Native Magnus</b> components
 </p>
 
 <p valign="top" align="center">
-  <img valign="middle" src="docs/assets/screenshot/HomeScreen.png" width="18%" alt="Home Screen" />
-  <img valign="middle" src="docs/assets/screenshot/NoteListScreen.png" width="18%" alt="Note List Screen" />
-  <img valign="middle" src="docs/assets/gif/app.gif" width="23%" alt="App Review" />
-  <img valign="middle" src="docs/assets/screenshot/NoteScreen.gif" width="18%" alt="Note Screen" />
-  <img valign="middle" src="docs/assets/screenshot/ColorPicker.gif" width="18%" alt="Color Picker" />
+  <img valign="middle" src="docs/assets/screenshot/HomeScreen.png" width="17%" alt="Home Screen" />
+  <img valign="middle" src="docs/assets/screenshot/NoteListScreen.png" width="19%" alt="Note List Screen" />
+  <img valign="middle" src="docs/assets/gif/app.gif" width="24%" alt="App Review" />
+  <img valign="middle" src="docs/assets/screenshot/NoteScreen.gif" width="19%" alt="Note Screen" />
+  <img valign="middle" src="docs/assets/screenshot/ColorPicker.gif" width="17%" alt="Color Picker" />
 </p>
 
 - TypeScript

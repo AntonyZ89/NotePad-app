@@ -8,9 +8,9 @@ import {
   View,
 } from 'react-native';
 import {Divider, FAB, Input} from 'react-native-elements';
-import {RootStackParamList} from '../../App';
-import {ColorPicker} from '../components';
-import {useNote} from '../contexts/NoteContext';
+import {RootStackParamList} from '~/../App';
+import {ColorPicker} from '~/components';
+import {useNote} from '~/contexts/NoteContext';
 
 type NoteScreenNavigationProps = RouteProp<RootStackParamList, 'Note'>;
 

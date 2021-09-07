@@ -3,10 +3,10 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {BottomSheet, FAB, Text} from 'react-native-elements';
-import {RootStackParamList} from '../../App';
-import {NoteCard} from '../components';
-import {useNote} from '../contexts/NoteContext';
-import {NoteType} from '../types';
+import {RootStackParamList} from '~/../App';
+import {NoteCard} from '~/components';
+import {useNote} from '~/contexts/NoteContext';
+import {NoteType} from '~/types';
 
 type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
 

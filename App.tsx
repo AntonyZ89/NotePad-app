@@ -13,12 +13,12 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Home, Note, NoteList} from './src/pages';
+import {Home, Note, NoteList} from '~/pages';
 import {ThemeProvider} from 'react-native-elements';
-import {NoteType} from './src/types';
-import {NoteProvider, useNote} from './src/contexts/NoteContext';
-import About from './src/pages/About';
-import {ColorPicker} from './src/components';
+import {NoteType} from '~/types';
+import {NoteProvider, useNote} from '~/contexts/NoteContext';
+import About from '~/pages/About';
+import {ColorPicker} from '~/components';
 
 export type RootStackParamList = {
   Home: undefined;

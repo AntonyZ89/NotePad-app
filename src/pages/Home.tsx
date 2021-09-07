@@ -3,8 +3,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Button, Header} from 'react-native-elements';
-import {RootStackParamList} from '../../App';
-import {InnerContainer} from '../components';
+import {RootStackParamList} from '~/../App';
+import {InnerContainer} from '~/components';
 
 type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
 

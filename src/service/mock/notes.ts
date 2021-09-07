@@ -1,4 +1,4 @@
-import {NoteType} from '../../types';
+import {NoteType} from '~/types';
 
 const notes: NoteType[] = [
   {

@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {BottomSheet, Button, FAB} from 'react-native-elements';
-import mock from '../service/mock';
+import mock from '~/service/mock';
 
 type PROPS = {
   color?: string;
